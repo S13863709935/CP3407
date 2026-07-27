@@ -35,7 +35,7 @@
         from goods
         left join user on goods.user_id = user.id
         <where>
-            goods.status = '通过' and goods.sale_status = '上架' and goods.user_id != #{userId}
+            goods.status = '通过' and goods.sale_status = 'Listed' and goods.user_id != #{userId}
             <if test="name != null"> and goods.name like concat('%', #{name}, '%')</if>
             <if test="category != null"> and goods.category = #{category}</if>
         </where>
