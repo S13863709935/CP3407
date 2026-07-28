@@ -1,5 +1,9 @@
 # Local Community Second-hand App
 
+## Project Documentation
+
+- [Requirements and Product Backlog](docs/requirements.md)
+
 ## Iteration 1 Status: Completed
 We have successfully built the core trading prototype. The completed features include:
 - [x] User Registration & Login (US 1)
@@ -8,15 +12,15 @@ We have successfully built the core trading prototype. The completed features in
 - [x] Item Details & Messaging (US 5)
 
 ## Iteration 2 Status: Completed
-We have further expanded the platform functionalities. The completed features include:
+We expanded discovery and completed the seller and transaction workflows:
 - [x] Search Items by Keyword (US 4)
-- [x] Specify Item Condition (US 6)
+- [x] Control Listing Publication Status (US 6)
 - [x] Manage My Listings (US 7)
-- [x] Mark Item as Sold (US 8)
+- [x] Place and Manage Orders (US 8)
 - [x] User Profile Customization (US 9)
 
 ## Iteration 3 Status: Completed
-We have finalized the community interaction and safety features for the final release. The completed features include:
+We added retention and platform communication features:
 - [x] Save/Favorite Items (US 10)
-- [x] In-App Notifications (US 11)
-- [x] Report Inappropriate Listings (US 12)
+- [x] View System Announcements (US 11)
+- [x] Submit Feedback and View Replies (US 12)
