@@ -65,7 +65,7 @@ Verified on 28 July 2026:
 
 ```text
 Backend: mvn clean verify
-Result: 33 tests, 0 failures, 0 errors; executable JAR produced
+Result: 39 tests, 0 failures, 0 errors; executable JAR produced
 
 Frontend: npm test
 Result: two contract suites passed

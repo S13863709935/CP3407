@@ -3,6 +3,7 @@ package com.example.service;
 import com.example.entity.Collect;
 import com.example.entity.Goods;
 import com.example.entity.Likes;
+import com.example.exception.CustomException;
 import com.example.mapper.CollectMapper;
 import com.example.mapper.GoodsMapper;
 import com.example.mapper.LikesMapper;
@@ -18,10 +19,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -71,11 +75,65 @@ class GoodsServiceTest {
         Goods goods = new Goods();
         goods.setId(4);
         goods.setSaleStatus("Unlisted");
+        Goods existing = listingOwnedBy(21);
+        when(goodsMapper.selectById(4)).thenReturn(existing);
 
         goodsService.updateById(goods);
 
         assertEquals("Off-shelf", goods.getSaleStatus());
         verify(goodsMapper).updateById(goods);
+    }
+
+    @Test
+    void residentCannotUpdateAnotherResidentsListing() {
+        Goods update = new Goods();
+        update.setId(7);
+        update.setSaleStatus("Off-shelf");
+        when(goodsMapper.selectById(7)).thenReturn(listingOwnedBy(99));
+
+        CustomException error = assertThrows(
+                CustomException.class,
+                () -> goodsService.updateById(update)
+        );
+
+        assertEquals("403", error.getCode());
+        verify(goodsMapper, never()).updateById(update);
+    }
+
+    @Test
+    void residentCannotDeleteAnotherResidentsListing() {
+        when(goodsMapper.selectById(8)).thenReturn(listingOwnedBy(99));
+
+        CustomException error = assertThrows(
+                CustomException.class,
+                () -> goodsService.deleteById(8)
+        );
+
+        assertEquals("403", error.getCode());
+        verify(goodsMapper, never()).deleteById(8);
+    }
+
+    @Test
+    void residentCanDeleteTheirOwnListing() {
+        when(goodsMapper.selectById(9)).thenReturn(listingOwnedBy(21));
+
+        goodsService.deleteById(9);
+
+        verify(goodsMapper).deleteById(9);
+    }
+
+    @Test
+    void batchDeleteValidatesEveryListingBeforeDeletingAnything() {
+        when(goodsMapper.selectById(10)).thenReturn(listingOwnedBy(21));
+        when(goodsMapper.selectById(11)).thenReturn(listingOwnedBy(99));
+
+        assertThrows(
+                CustomException.class,
+                () -> goodsService.deleteBatch(Arrays.asList(10, 11))
+        );
+
+        verify(goodsMapper, never()).deleteById(10);
+        verify(goodsMapper, never()).deleteById(11);
     }
 
     @Test
@@ -109,5 +167,11 @@ class GoodsServiceTest {
         assertEquals(21, filter.getUserId());
         assertEquals(1, result.getList().size());
         assertEquals(2, result.getList().get(0).getLikesCount());
+    }
+
+    private Goods listingOwnedBy(int userId) {
+        Goods goods = new Goods();
+        goods.setUserId(userId);
+        return goods;
     }
 }
