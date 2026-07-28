@@ -1,0 +1,42 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      - Frontend
+      - frontend-quality-evidence
+  pull_request:
+    branches:
+      - Frontend
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Run frontend contract tests
+        run: npm test
+
+      - name: Build production bundle
+        run: npm run build
+
+      - name: Upload production bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-production-build
+          path: dist/
