@@ -6,8 +6,9 @@ Testing is organised into four complementary levels:
 
 1. pure unit tests for status normalisation and user-service rules;
 2. controller/service contract tests for all 12 delivered user stories;
-3. frontend contract tests for routes and critical view behaviour;
-4. manual acceptance and deployed end-to-end tests before client sign-off.
+3. H2-backed MyBatis integration tests for public listing visibility;
+4. frontend contract tests for routes and critical view behaviour;
+5. manual acceptance and deployed end-to-end tests before client sign-off.
 
 The historical project was not developed test-first, so this repository does
 not claim full TDD. The current automated suite is a regression safety net, and
@@ -51,9 +52,10 @@ Local verification on 28 July 2026:
 | `OrdersServiceTest` | 2 | 0 | 0 |
 | `ResidentScopedServiceTest` | 4 | 0 | 0 |
 | `UserServiceTest` | 3 | 0 | 0 |
-| **Backend total** | **30** | **0** | **0** |
+| `GoodsMapperIntegrationTest` | 3 | 0 | 0 |
+| **Backend total** | **33** | **0** | **0** |
 
-JaCoCo baseline coverage is 25.3% of project lines and 23.1% of branches.
+JaCoCo baseline coverage is 29.9% of project lines and 23.1% of branches.
 This is a truthful baseline rather than a quality target. The tests concentrate
 on the assessed resident journeys; legacy administrator and community modules
 remain candidates for additional unit tests.
@@ -67,10 +69,10 @@ All assertions passed, and the production bundle compiled successfully.
 |---|---|---|---|
 | US1 | `WebControllerTest`, `UserServiceTest` | valid, missing and incorrect credentials | Login/register in deployed UI |
 | US2 | `us2PublishesAnItemThroughTheGoodsService` | item payload and delegated persistence | Image upload and validation |
-| US3 | `us3BrowsesAvailableItemsByCategory` | matching category | Confirm real database results |
-| US4 | keyword controller test and frontend empty-result contract | match and no-result response | Search usability |
+| US3 | controller contract and H2 category query | matching category | Confirm production database results |
+| US4 | keyword controller, H2 no-result query and frontend empty-result contract | match and no-result response | Search usability |
 | US5 | details plus comment contract | item ID and message creation | Buyer/seller conversation |
-| US6 | enum tests, controller update, frontend status suite | legacy, canonical, null, rejected value | Off-shelf visibility against MySQL |
+| US6 | enum tests, controller update, frontend status suite and H2 visibility query | legacy, canonical, null, rejected value, hidden item | Confirm behaviour against deployed MySQL |
 | US7 | seller listing controller contract | user-scoped page | Ownership/security attempt |
 | US8 | buyer/seller order contracts | purchase/sale lists and initial state | Full state lifecycle and payment sandbox |
 | US9 | profile update contract | nickname/avatar fields | Upload and persistence |
@@ -80,7 +82,8 @@ All assertions passed, and the production bundle compiled successfully.
 
 ## 5. Test data design
 
-Automated tests use deterministic in-memory objects and Mockito doubles:
+Automated tests use deterministic in-memory objects, Mockito doubles and a
+disposable H2 database operating in MySQL compatibility mode:
 
 - named users such as `resident`;
 - representative categories such as Books, Furniture and Electronics;
@@ -95,13 +98,13 @@ non-sensitive sandbox data.
 
 ## 6. Remaining test risks
 
-- The MyBatis SQL has not yet been exercised against a disposable database in
-  CI.
+- H2 provides fast SQL regression coverage but cannot guarantee every
+  MySQL-specific behaviour.
 - Browser-level interaction and accessibility tests are not yet automated.
 - Payment verification requires the Alipay sandbox.
 - Current line coverage is deliberately reported but not high enough to be
   treated as exemplary whole-system coverage.
 - Genuine client acceptance remains open in Issue #27.
 
-Recommended next tests are an H2/Testcontainers mapper suite, Playwright/Cypress
+Recommended next tests are Testcontainers with MySQL, Playwright/Cypress
 journey tests, and explicit ownership/access-control cases.

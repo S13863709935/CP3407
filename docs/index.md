@@ -16,7 +16,7 @@ tool choices, agile records, and deployment readiness to the repository.
 | Requirements | [Product backlog and acceptance criteria](requirements.md) | 12 delivered stories are prioritised, estimated, budgeted, and traceable |
 | Design | [Architecture, database, and interface design](design.md) | Repository-native models complete; external interactive prototype still requires owner publication |
 | Implementation | [Iteration implementation evidence](implementation.md) | Three implementation increments mapped to code; hosted demonstration pending |
-| Test | [Testing strategy and results](testing.md) | 30 backend tests and two frontend contract suites pass locally; CI configured |
+| Test | [Testing strategy and results](testing.md) | 33 backend tests and two frontend contract suites pass locally; CI configured |
 | Version control | [Agile and traceability record](agile.md) | Issues, milestone, feature branches, CI and PR checklist are in use |
 | Development tools | [Tool selection and usage](tools.md) | Build, framework, database, UI, test and CI tools are justified |
 | Agile engineering | [Iteration reviews and current quality sprint](agile.md) | Scope changes and a genuine hardening sprint are recorded |
@@ -24,7 +24,7 @@ tool choices, agile records, and deployment readiness to the repository.
 
 ## Verified quality snapshot
 
-- Backend: `mvn clean verify` completed with 30 tests, 0 failures and 0
+- Backend: `mvn clean verify` completed with 33 tests, 0 failures and 0
   errors on 28 July 2026.
 - Frontend: `npm test` completed two automated contract suites successfully.
 - Frontend: `npm run build` produced a deployable production bundle.
