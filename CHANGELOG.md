@@ -18,6 +18,7 @@ All notable changes to the coursework release are recorded here.
 ### Testing
 
 - Added deterministic backend tests mapped to the 12 delivered user stories.
+- Added H2-backed MyBatis integration tests for public listing visibility.
 - Added frontend status and UI contract suites.
 - Added JaCoCo reporting and a combined GitHub Actions quality workflow.
 

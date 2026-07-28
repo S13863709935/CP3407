@@ -46,7 +46,7 @@ working features lacked sufficient security, test, CI and design evidence.
 |---|---|---|
 | [#22](https://github.com/S13863709935/CP3407/issues/22) | Secrets and generated artifacts | Current config uses environment values; generated/IDE files removed from tracking |
 | [#23](https://github.com/S13863709935/CP3407/issues/23) | Listing status consistency | Canonical values implemented and tested on both sides |
-| [#24](https://github.com/S13863709935/CP3407/issues/24) | Automated tests | 30 backend tests and two frontend suites pass |
+| [#24](https://github.com/S13863709935/CP3407/issues/24) | Automated tests | 33 backend tests and two frontend suites pass |
 | [#25](https://github.com/S13863709935/CP3407/issues/25) | Continuous integration | Quality workflow and evidence artifacts configured |
 | [#26](https://github.com/S13863709935/CP3407/issues/26) | Documentation portal | Rubric-linked pages and diagrams created |
 | [#27](https://github.com/S13863709935/CP3407/issues/27) | Deployment/client acceptance | Open; requires owner and real reviewer |
@@ -56,7 +56,7 @@ working features lacked sufficient security, test, CI and design evidence.
 ### Engineering review
 
 - Frontend test and production build: passed.
-- Backend clean verification: passed, 30/30 tests.
+- Backend clean verification: passed, 33/33 tests.
 - Generated artifacts: no longer tracked.
 - Current-source credentials: removed.
 - CI: configured; remote run must pass after PR push.
