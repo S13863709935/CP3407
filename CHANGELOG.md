@@ -9,6 +9,7 @@ All notable changes to the coursework release are recorded here.
 - Replaced committed runtime credentials with environment variables.
 - Added safe environment examples and security guidance.
 - Removed generated build and IDE artifacts from version control.
+- Added server-side ownership checks for listing update and delete actions.
 
 ### Fixed
 

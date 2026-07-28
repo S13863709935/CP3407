@@ -11,9 +11,11 @@ Testing is organised into five complementary levels:
 5. manual acceptance and deployed end-to-end tests before client sign-off.
 
 The historical project was not developed test-first, so this repository does
-not claim full TDD. The current automated suite is a regression safety net, and
-future changes should follow red-green-refactor through a failing test on a
-feature branch before implementation.
+not claim full-system TDD. The ownership hardening in Issue
+[#37](https://github.com/S13863709935/CP3407/issues/37) does provide auditable
+red-green evidence: commit `f9b9593` defines failing seller-ownership tests,
+then commit `73e715c` implements the policy and makes the suite pass. Future
+changes should continue this red-green-refactor sequence.
 
 ## 2. Repeatable commands
 
@@ -48,14 +50,15 @@ Local verification on 28 July 2026:
 | `ListingStatusEnumTest` | 3 | 0 | 0 |
 | `MarketplaceControllerTest` | 11 | 0 | 0 |
 | `WebControllerTest` | 3 | 0 | 0 |
-| `GoodsServiceTest` | 4 | 0 | 0 |
+| `GoodsServiceTest` | 8 | 0 | 0 |
+| `GoodsServiceAdminTest` | 2 | 0 | 0 |
 | `OrdersServiceTest` | 2 | 0 | 0 |
 | `ResidentScopedServiceTest` | 4 | 0 | 0 |
 | `UserServiceTest` | 3 | 0 | 0 |
 | `GoodsMapperIntegrationTest` | 3 | 0 | 0 |
-| **Backend total** | **33** | **0** | **0** |
+| **Backend total** | **39** | **0** | **0** |
 
-JaCoCo baseline coverage is 29.9% of project lines and 23.1% of branches.
+JaCoCo baseline coverage is 31.5% of project lines and 26.8% of branches.
 This is a truthful baseline rather than a quality target. The tests concentrate
 on the assessed resident journeys; legacy administrator and community modules
 remain candidates for additional unit tests.
@@ -72,8 +75,8 @@ All assertions passed, and the production bundle compiled successfully.
 | US3 | controller contract and H2 category query | matching category | Confirm production database results |
 | US4 | keyword controller, H2 no-result query and frontend empty-result contract | match and no-result response | Search usability |
 | US5 | details plus comment contract | item ID and message creation | Buyer/seller conversation |
-| US6 | enum tests, controller update, frontend status suite and H2 visibility query | legacy, canonical, null, rejected value, hidden item | Confirm behaviour against deployed MySQL |
-| US7 | seller listing controller contract | user-scoped page | Ownership/security attempt |
+| US6 | enum tests, controller update, frontend status suite, H2 visibility query and ownership tests | legacy, canonical, null, rejected value, hidden item, cross-user update | Confirm behaviour against deployed MySQL |
+| US7 | seller listing controller contract and red-green ownership tests | user-scoped page, cross-user update/delete, atomic batch validation, administrator moderation | Repeat crafted-request checks against the deployed API |
 | US8 | buyer/seller order contracts | purchase/sale lists and initial state | Full state lifecycle and payment sandbox |
 | US9 | profile update contract | nickname/avatar fields | Upload and persistence |
 | US10 | favourite add/list contract | authenticated list | Duplicate favourite handling |
@@ -107,4 +110,4 @@ non-sensitive sandbox data.
 - Genuine client acceptance remains open in Issue #27.
 
 Recommended next tests are Testcontainers with MySQL, Playwright/Cypress
-journey tests, and explicit ownership/access-control cases.
+journey tests, and access-control cases for the remaining community modules.
