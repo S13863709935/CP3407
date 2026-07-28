@@ -41,8 +41,8 @@
         
         <el-table-column prop="saleStatus" label="Sale Status">
           <template v-slot="scope">
-            <el-tag type="success" v-if="scope.row.saleStatus === '上架'">On Sale</el-tag>
-            <el-tag type="info" v-else-if="scope.row.saleStatus === '下架'">Off Shelf</el-tag>
+            <el-tag type="success" v-if="scope.row.saleStatus === 'Listed'">On-shelf</el-tag>
+            <el-tag type="info" v-else-if="scope.row.saleStatus === 'Off-shelf'">Off-shelf</el-tag>
             <el-tag type="warning" v-else>{{ scope.row.saleStatus }}</el-tag>
           </template>
         </el-table-column>

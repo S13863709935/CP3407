@@ -33,8 +33,8 @@
         </el-form-item>
         <el-form-item label="Sale Status" prop="saleStatus">
           <el-radio-group v-model="form.saleStatus">
-            <el-radio label="On-shelf"></el-radio>
-            <el-radio label="Off-shelf"></el-radio>
+            <el-radio :label="listingStatus.LISTED">On-shelf</el-radio>
+            <el-radio :label="listingStatus.OFF_SHELF">Off-shelf</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="Details" prop="content">
@@ -51,6 +51,8 @@
 
 <script>
 import E from "wangeditor"
+const { LISTING_STATUS, normaliseListingStatus } = require('@/utils/listingStatus')
+
 export default {
   name: "AddGoods",
   data() {
@@ -58,8 +60,9 @@ export default {
       id: this.$route.query.id,
       user: JSON.parse(localStorage.getItem('xm-user') || '{}'),
       categoryList: [],
+      listingStatus: LISTING_STATUS,
       form: {
-        saleStatus: 'Off-shelf'
+        saleStatus: LISTING_STATUS.OFF_SHELF
       },
       rules: {
         name: [
@@ -87,6 +90,7 @@ export default {
       if (this.id) {   // In case of Edit
         this.$request.get('/goods/selectById/' + this.id).then(res => {
           this.form = res.data || {}
+          this.form.saleStatus = normaliseListingStatus(this.form.saleStatus)
           this.setRichText(this.form.content)
         })
       } else {
