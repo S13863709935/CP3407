@@ -2,6 +2,7 @@ package com.example.service;
 
 import cn.hutool.core.date.DateUtil;
 import com.example.common.enums.RoleEnum;
+import com.example.common.enums.ListingStatusEnum;
 import com.example.common.enums.StatusEnum;
 import com.example.entity.Account;
 import com.example.entity.Collect;
@@ -38,6 +39,8 @@ public class GoodsService {
         Account currentUser = TokenUtils.getCurrentUser();
         goods.setUserId(currentUser.getId());
         goods.setStatus(StatusEnum.NOT_AUDIT.value);
+        String saleStatus = ListingStatusEnum.normalise(goods.getSaleStatus());
+        goods.setSaleStatus(saleStatus == null ? ListingStatusEnum.OFF_SHELF.value : saleStatus);
         goods.setReadCount(0);
         goodsMapper.insert(goods);
     }
@@ -65,6 +68,9 @@ public class GoodsService {
         Account currentUser = TokenUtils.getCurrentUser();
         if (RoleEnum.USER.name().equals(currentUser.getRole())) {
             goods.setStatus(StatusEnum.NOT_AUDIT.value);
+        }
+        if (goods.getSaleStatus() != null) {
+            goods.setSaleStatus(ListingStatusEnum.normalise(goods.getSaleStatus()));
         }
         goodsMapper.updateById(goods);
     }

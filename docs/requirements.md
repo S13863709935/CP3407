@@ -196,7 +196,7 @@ evidence.
 | US3 | Issue [#13](https://github.com/S13863709935/CP3407/issues/13) | Category filters and available-listing query | Category request tests | Implemented; add result-content assertions |
 | US4 | Issue [#6](https://github.com/S13863709935/CP3407/issues/6) and bug [#18](https://github.com/S13863709935/CP3407/issues/18) | Keyword query and Search view | Keyword request tests | Implemented; add assertions for matching and empty result sets |
 | US5 | Issue [#14](https://github.com/S13863709935/CP3407/issues/14) | GoodsDetail, comment tree, and chat group features | None mapped to US5 | Implemented; acceptance and integration tests required |
-| US6 | Issue [#1](https://github.com/S13863709935/CP3407/issues/1); issue [#3](https://github.com/S13863709935/CP3407/issues/3) is retained as superseded history | AddGoods and Goods views expose `saleStatus`; the Goods API and mapper persist it | None | Implemented; standardise On-shelf/Listed values and add visibility tests |
+| US6 | Issue [#1](https://github.com/S13863709935/CP3407/issues/1); issue [#3](https://github.com/S13863709935/CP3407/issues/3) is retained as superseded history | Canonical listing status module/enum, Goods service normalisation, AddGoods controls, and listed-only mapper query | Backend enum tests, controller contract, and frontend status suite | Implemented; add a disposable-database visibility integration test |
 | US7 | Issue [#2](https://github.com/S13863709935/CP3407/issues/2) | Seller Goods view and user-filtered listing service | None mapped to US7 | Implemented; ownership tests required |
 | US8 | Issue [#16](https://github.com/S13863709935/CP3407/issues/16) | GoodsDetail order creation, buyer/seller order views, order status workflow, and payment entry point | None mapped to US8 | Implemented; authorisation and lifecycle tests required |
 | US9 | Issue [#4](https://github.com/S13863709935/CP3407/issues/4) | Person view supports avatar and profile updates | None | Implemented; persistence and validation tests required |
@@ -215,6 +215,7 @@ evidence.
 - Issue #3 is retained as superseded history rather than being claimed as an
   independently delivered feature. Issues #15 and #17 remain open and are
   explicitly identified as future scope.
-- The implementation is aligned with all 12 revised stories, but the remaining
-  validation, authorisation, status-value consistency, and automated-test work
-  must be completed before every story meets the Definition of Done.
+- The implementation is aligned with all 12 revised stories. Deterministic
+  controller/service tests now cover the story contracts, but deployed
+  acceptance, deeper validation/authorisation cases, and genuine client review
+  remain required before every story meets the Definition of Done.

@@ -1,19 +1,17 @@
 server:
-  port: 9090
+  port: ${SERVER_PORT:9090}
 
-# 数据库配置
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root   #你本地的数据库用户名
-    password: Song20060602 #你本地的数据库密码
-    url: jdbc:mysql://localhost:3306/xm-secondhand?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    url: ${DB_URL:jdbc:mysql://localhost:3306/xm-secondhand?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true}
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
 
-# 配置mybatis实体和xml映射
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.example.entity
@@ -21,17 +19,16 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
-# 分页
 pagehelper:
   helper-dialect: mysql
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
 
-ip: localhost
+ip: ${APP_HOST:localhost}
 
 alipay:
-  appId: 9021000131669700
-  appPrivateKey: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCDIbflRH1Qp3NCD+nx9jfJ2i+aAwYU6NnGnz2TxhsDHeUNt5fVvaNDBO2/6VyHAWocO8kn2EK2SgKKSa9+dVlG/hyQc2URqwcij3g/LcABh19BhiaPBp7GAvhFrZxS+WgMW8bBcRr17sl58wsUt6ZRETQ5+yRL+xr4c3GcuHfMt8aNMBhY0aPazsCT03PFrJdBzI+4HbDttkhBVG83uAZiDLINo9njBZxM72fa6b8TW0HIxAqxz7EuHJAih5xM97M0IUqI22wr3GX9qGE6mXik4BB0Q0XlLOqkm/seL1RJXZSdsYnxy8uBiWKxwAvw4qpab3aRF1dHOOVnMjZH6o+lAgMBAAECggEAMLEBhtlSqvMyohIkrVrexk4FJOwAgx0fWFhi1g9Wkma0Wc6VS6GaENWwrnUpjVviGc+9VtU/mE6M+Op5hrxuRSUwWBbxLYlTIesiHFuRkz/ACCWXBb7Qj/gkVkMr68d+cjBV8hhciXt8RpMPx0aWND3uJaVyieAY2K6NPkNlAJelWAhbV/CUaYBBZAeLY4Yo/Dftn97+NKWK+1beqetsXuVce+lerwUUSlEYis6ZLPNR/rTYSBskzteNUfESpGXPKeIp0L5qonHHNSaNy/CM124Vg0AbfawmVg24UjdeY72iD1ith+6odvlk60VI7ZIwK140GBwqTWeidZDusVJqNQKBgQDlWdsohTY97nCrSz4rSDJLx3g40u194ytLZG3cGSWiOILlh5HPfq63hS2F+/5QGn7R1expXmGUucPpyrGhy8ab9NoZs7Iiu1W5Ksqx1dyDzq+7KSrGQVNtR5sroMgL4wXAFEInH2SVgni14EpdzzvEe7q+LLEusg+GkRFJYEyZDwKBgQCSXkmSSqvWQNBMTJo2apa+4FoFlEC0RUG4lyfhuc0u+y4iuxeJRHo0mcAFk3sCHiCrYqYSRx4REnn+9PoWQvOjes5tIh80dDbVULTmewwJRuN0cxXnJZ2MMbFEImZRsroxVRy7p8kNObGRAd6qfjxYZ2rt6eyr1SIiXcnGxIhECwKBgAPWyjVWbX8B477qRoMg9T6RezCwTythRxM+/hvGC/w4J/DBoS4w96m4v/dTLYGXv/GxPADThJyhs2bRbsG/kHaB1bjCakPskNXFopjxdHx8VDK00LN62nOk1DMZwN96EFmTvTu8acma4nxg4b3KPzzduVV/mAOpFVtySDDLPNz/AoGBAIK1OqQulKefd6Q7YBeqNfY86YdD7khN9LPAIHhecVI8MuYHB6yofy1MBAO2wUmR2ADU9pMp+TqrslAxOsf4gBSEjaU9rHouMe1qxjFwvr3mFScfwvaJS9kvYysCQTdCES4O4LrfyhZKaDyjW9ILKx6TNBVEKfsFORdRg+hCB6IjAoGAAcDLFr+i0Gzwc+kqYhxRH1n0qpwtz8VaJPP9j3eyZCxD289THgM+b3FTrtD1D98PBJnTme6gMMdEhumuniZh6c0p9MblS/AZDwco8um3eGnSStQQUdxtWXMSTm2C7SW2OeXSDfXCJbMyUDsA3C2M7TWXpZyLvQyzv+qo+SkjEZY=
-  alipayPublicKey: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxmQ5wh75EwjqJkacb3RNWXTTNkrLaX5mbq2b4qH8lZ49xKb1SPsr+wgypDTms6JNFEp9zKez7M1TzlS9XMXmGkRgWso6pEVAAfZnAilrEOkHc0L+/If64mUXe5NXWdV7bkBP9zNZQivbqcGoPaZbHdICj1ba9MrYtQqjyeSmD1hKT8cqYAGzF9ykirfbQhVSv0n0PPNUs+dq7bQ779GmAftiGrTP2RbXfJFwP30khYqANWXuCoqB8Chmvt6vHW0YJLzYB87cfw/6bRFFjOCups2j4ZUXnv/+/GZuFZxCtCesxMypshcLgV89uezhlZwNqnbycC54qNK7wmF2X1JG8wIDAQAB
-  notifyUrl: http://g2ddqn.natappfree.cc/alipay/notify
+  appId: ${ALIPAY_APP_ID:}
+  appPrivateKey: ${ALIPAY_APP_PRIVATE_KEY:}
+  alipayPublicKey: ${ALIPAY_PUBLIC_KEY:}
+  notifyUrl: ${ALIPAY_NOTIFY_URL:}

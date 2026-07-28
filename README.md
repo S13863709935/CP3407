@@ -1,26 +1,80 @@
-# Local Community Second-hand App
+# Local Community Second-hand Marketplace
 
-## Project Documentation
+[![Quality CI](https://github.com/S13863709935/CP3407/actions/workflows/quality-ci.yml/badge.svg?branch=Backend)](https://github.com/S13863709935/CP3407/actions/workflows/quality-ci.yml)
 
-- [Requirements and Product Backlog](docs/requirements.md)
+A Vue and Spring Boot marketplace where residents publish, discover, discuss,
+save and purchase second-hand items within a local community.
 
-## Iteration 1 Status: Completed
-We have successfully built the core trading prototype. The completed features include:
-- [x] User Registration & Login (US 1)
-- [x] Product Publishing (with images) (US 2)
-- [x] Product Browsing by Category (US 3)
-- [x] Item Details & Messaging (US 5)
+## Project evidence
 
-## Iteration 2 Status: Completed
-We expanded discovery and completed the seller and transaction workflows:
-- [x] Search Items by Keyword (US 4)
-- [x] Control Listing Publication Status (US 6)
-- [x] Manage My Listings (US 7)
-- [x] Place and Manage Orders (US 8)
-- [x] User Profile Customization (US 9)
+The [assessment evidence hub](docs/index.md) connects every rubric category to
+maintained project evidence:
 
-## Iteration 3 Status: Completed
-We added retention and platform communication features:
-- [x] Save/Favorite Items (US 10)
-- [x] View System Announcements (US 11)
-- [x] Submit Feedback and View Replies (US 12)
+- [Requirements, priorities, estimates and acceptance criteria](docs/requirements.md)
+- [Architecture, database and interface design](docs/design.md)
+- [Implementation evidence by iteration](docs/implementation.md)
+- [Testing strategy, matrix and verified results](docs/testing.md)
+- [Building and development tools](docs/tools.md)
+- [Agile engineering record](docs/agile.md)
+- [Deployment and operations](docs/deployment.md)
+- [Security policy](SECURITY.md)
+- [Contribution and review workflow](CONTRIBUTING.md)
+
+## Delivered scope
+
+### Iteration 1 — marketplace prototype
+
+- User registration and login
+- Item publishing with images
+- Category browsing
+- Item details and messaging
+
+### Iteration 2 — discovery and transactions
+
+- Keyword search
+- On-shelf/off-shelf publication control
+- Seller listing management
+- Buyer and seller order workflow
+- Profile customisation
+
+### Iteration 3 — retention and communication
+
+- Favourite items
+- System announcements
+- Feedback submission and administrator replies
+
+## Technology
+
+- Backend branch: Java 8, Spring Boot 2.5, MyBatis, MySQL, JWT, WebSocket
+- Frontend branch: Vue 2, Vue Router, Axios, Element UI, ECharts, WangEditor
+- Quality: JUnit 5, Mockito, JaCoCo, Node test runner, GitHub Actions
+
+## Quick verification
+
+Backend:
+
+```bash
+mvn clean verify
+```
+
+Frontend branch:
+
+```bash
+npm ci
+npm test
+npm run build
+```
+
+Runtime credentials are environment variables. Copy the relevant
+`.env.example` values into an ignored local environment or IDE run
+configuration; never commit real values.
+
+## Repository structure
+
+The repository intentionally maintains the existing coursework layout:
+
+- `Backend` — Spring Boot API, SQL seed, tests and evidence documentation
+- `Frontend` — Vue single-page application and frontend contract tests
+
+Planning and quality work is tracked through the
+[Quality & Evidence Sprint](https://github.com/S13863709935/CP3407/milestone/1).
