@@ -1,0 +1,22 @@
+# Build output
+/target/
+
+# IDE and operating-system files
+/.idea/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Local runtime configuration
+.env
+.env.*
+!.env.example
+/src/main/resources/application-local.yml
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Test and coverage output
+/coverage/
+/test-results/
