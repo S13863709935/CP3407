@@ -2,7 +2,7 @@
 
 ## 1. Test approach
 
-Testing is organised into four complementary levels:
+Testing is organised into five complementary levels:
 
 1. pure unit tests for status normalisation and user-service rules;
 2. controller/service contract tests for all 12 delivered user stories;

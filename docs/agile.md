@@ -49,6 +49,7 @@ working features lacked sufficient security, test, CI and design evidence.
 | [#24](https://github.com/S13863709935/CP3407/issues/24) | Automated tests | 33 backend tests and two frontend suites pass |
 | [#25](https://github.com/S13863709935/CP3407/issues/25) | Continuous integration | Quality workflow and evidence artifacts configured |
 | [#26](https://github.com/S13863709935/CP3407/issues/26) | Documentation portal | Rubric-linked pages and diagrams created |
+| [#35](https://github.com/S13863709935/CP3407/issues/35) | Database integration tests | H2-backed MyBatis listing visibility checks |
 | [#27](https://github.com/S13863709935/CP3407/issues/27) | Deployment/client acceptance | Open; requires owner and real reviewer |
 
 ## 5. Review and retrospective
