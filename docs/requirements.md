@@ -196,23 +196,25 @@ evidence.
 | US3 | Issue [#13](https://github.com/S13863709935/CP3407/issues/13) | Category filters and available-listing query | Category request tests | Implemented; add result-content assertions |
 | US4 | Issue [#6](https://github.com/S13863709935/CP3407/issues/6) and bug [#18](https://github.com/S13863709935/CP3407/issues/18) | Keyword query and Search view | Keyword request tests | Implemented; add assertions for matching and empty result sets |
 | US5 | Issue [#14](https://github.com/S13863709935/CP3407/issues/14) | GoodsDetail, comment tree, and chat group features | None mapped to US5 | Implemented; acceptance and integration tests required |
-| US6 | Issue [#3](https://github.com/S13863709935/CP3407/issues/3) | AddGoods and Goods views expose `saleStatus`; the Goods API and mapper persist it | None | Implemented; standardise On-shelf/Listed values and add visibility tests |
+| US6 | Issue [#1](https://github.com/S13863709935/CP3407/issues/1); issue [#3](https://github.com/S13863709935/CP3407/issues/3) is retained as superseded history | AddGoods and Goods views expose `saleStatus`; the Goods API and mapper persist it | None | Implemented; standardise On-shelf/Listed values and add visibility tests |
 | US7 | Issue [#2](https://github.com/S13863709935/CP3407/issues/2) | Seller Goods view and user-filtered listing service | None mapped to US7 | Implemented; ownership tests required |
 | US8 | Issue [#16](https://github.com/S13863709935/CP3407/issues/16) | GoodsDetail order creation, buyer/seller order views, order status workflow, and payment entry point | None mapped to US8 | Implemented; authorisation and lifecycle tests required |
 | US9 | Issue [#4](https://github.com/S13863709935/CP3407/issues/4) | Person view supports avatar and profile updates | None | Implemented; persistence and validation tests required |
 | US10 | Issues [#5](https://github.com/S13863709935/CP3407/issues/5) and [#19](https://github.com/S13863709935/CP3407/issues/19) | Collect API, favourites page, and favourite toggle | Unauthenticated negative test only | Implemented; authenticated behaviour tests required |
-| US11 | Issue [#20](https://github.com/S13863709935/CP3407/issues/20) | Notice API, administrator notice management, and resident Notice view | None mapped to US11 | Implemented; rename the Issue and add acceptance tests |
-| US12 | Issue [#17](https://github.com/S13863709935/CP3407/issues/17) | Feedback submission, user-specific feedback history, administrator management, and reply field | None mapped to US12 | Implemented; rename the Issue and add access-control tests |
+| US11 | Issue [#20](https://github.com/S13863709935/CP3407/issues/20) | Notice API, administrator notice management, and resident Notice view | None mapped to US11 | Implemented; add acceptance tests |
+| US12 | Issue [#21](https://github.com/S13863709935/CP3407/issues/21) | Feedback submission, user-specific feedback history, administrator management, and reply field | None mapped to US12 | Implemented; add access-control tests |
 
 ## 8. Review notes
 
-- The GitHub Issues establish useful planning history, but most currently have
-  no description, acceptance criteria, estimate, milestone, or discussion.
-  Future issue updates should link to this backlog and record real decisions.
+- The GitHub Issues establish useful planning history. Issues #1, #16, #20,
+  and #21 are aligned with the revised backlog and now record scope, estimates,
+  iterations, and acceptance criteria. Earlier technical issues still need
+  richer acceptance evidence and discussion.
 - Completed dates, client review notes, and acceptance results should be added
   only when supported by genuine evidence.
-- GitHub Issue titles for US6, US8, US11, and US12 should be updated to match
-  the evidence-based backlog above.
+- Issue #3 is retained as superseded history rather than being claimed as an
+  independently delivered feature. Issues #15 and #17 remain open and are
+  explicitly identified as future scope.
 - The implementation is aligned with all 12 revised stories, but the remaining
   validation, authorisation, status-value consistency, and automated-test work
   must be completed before every story meets the Definition of Done.
