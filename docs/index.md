@@ -14,7 +14,7 @@ tool choices, agile records, and deployment readiness to the repository.
 | Rubric area | Primary evidence | Current status |
 |---|---|---|
 | Requirements | [Product backlog and acceptance criteria](requirements.md) | 12 delivered stories are prioritised, estimated, budgeted, and traceable |
-| Design | [Architecture, database, and interface design](design.md) | Repository-native models complete; external interactive prototype still requires owner publication |
+| Design | [Architecture, database, and interface design](design.md) | Repository models plus online architecture, ERD, and nine-screen Figma prototype are linked; public assessor access must be confirmed |
 | Implementation | [Iteration implementation evidence](implementation.md) | Three implementation increments mapped to code; hosted demonstration pending |
 | Test | [Testing strategy and results](testing.md) | 39 backend tests and two frontend contract suites pass locally; CI configured |
 | Version control | [Agile and traceability record](agile.md) | Issues, milestone, feature branches, CI and PR checklist are in use |
@@ -35,8 +35,8 @@ tool choices, agile records, and deployment readiness to the repository.
 ## Honest evidence boundary
 
 The repository does not claim evidence that has not occurred. A public
-deployment, demonstration recording, external UI prototype, credential
-rotation, and genuine client acceptance remain tracked in
+deployment, demonstration recording, public-link verification for the online
+design artefacts, credential rotation, and genuine client acceptance remain tracked in
 [Issue #27](https://github.com/S13863709935/CP3407/issues/27).
 
 ## Repository navigation

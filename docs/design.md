@@ -47,6 +47,14 @@ flowchart LR
     Services --> Alipay
 ```
 
+**Online architecture artefact:** [CP3407 Marketplace Architecture in
+FigJam](https://www.figma.com/board/KWDCeaD6vsrTWq5YKLRA5d)
+
+The online diagram mirrors the repository model and provides an assessor-facing
+editable artefact created with an online diagramming tool. The layered route
+from Vue through Spring services to MySQL makes the separation of interface,
+transport, business rules, and persistence explicit.
+
 ### Component responsibilities
 
 | Component | Responsibility | Design justification |
@@ -171,6 +179,15 @@ erDiagram
     }
 ```
 
+**Online database artefact:** [CP3407 Marketplace Logical ERD in
+FigJam](https://www.figma.com/board/j7fAOfJqiuu9Dg9ttm19As)
+
+The online ERD is derived from `xm-secondhand.sql`. It focuses on the entities
+that implement the 12-story release: accounts, listings, categories,
+favourites, comments, orders, feedback, notices, addresses, and chat. The
+diagram is logical because the supplied SQL dump stores relationship
+identifiers without declaring physical foreign-key constraints.
+
 The supplied SQL dump currently represents relationships with identifier
 columns rather than declared database foreign-key constraints. This reduces
 import friction but permits orphaned data. A production migration should add
@@ -222,9 +239,30 @@ flowchart TD
 - Destructive actions require confirmation.
 - Important transaction states are visible in the order list.
 
-The repository contains the implemented interface rather than an external
-interactive prototype. An assessor-facing prototype made with the required
-online prototyping tool remains an explicit owner action in Issue #27.
+### Online interactive prototype
+
+The editable [Figma interface
+prototype](https://www.figma.com/design/GfV1MOuEnOkKbBGQD7bQgy) is based on the
+delivered Vue application rather than an unrelated redesign. Its nine desktop
+frames cover:
+
+| Frame | User stories demonstrated |
+|---|---|
+| Login and registration | US1 |
+| Marketplace home | US2, US3 |
+| Search results and empty state | US4 |
+| Item details, comments, chat entry, and favourite action | US5, US10 |
+| Publish or edit listing | US2, US6 |
+| Seller-owned listing inventory | US7 |
+| Purchase and sale order lifecycle | US8 |
+| Profile and favourites | US9, US10 |
+| Announcements and feedback/reply history | US11, US12 |
+
+Core buyer and seller paths are connected in Prototype mode: login to home,
+home to search or publishing, catalogue to item details, details to favourites
+or orders, and publishing to seller inventory. Before submission, the
+repository owner must use Figma's Share dialog to confirm that each linked
+artefact is available to **Anyone with the link can view**.
 
 ## 6. Key decisions and trade-offs
 
