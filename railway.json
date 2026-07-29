@@ -1,0 +1,12 @@
+{
+  "$schema": "https://railway.com/railway.schema.json",
+  "build": {
+    "builder": "RAILPACK",
+    "buildCommand": "mvn -B -DskipTests package"
+  },
+  "deploy": {
+    "startCommand": "mkdir -p /data/files && cp -rn files/. /data/files/ && java -jar target/springboot-0.0.1-SNAPSHOT.jar",
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 300
+  }
+}

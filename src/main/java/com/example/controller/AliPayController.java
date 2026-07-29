@@ -10,6 +10,7 @@ import com.example.common.config.AliPayConfig;
 import com.example.common.enums.OrderStatusEnum;
 import com.example.entity.Orders;
 import com.example.service.OrdersService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,9 @@ public class AliPayController {
     @Resource
     private OrdersService ordersService;
 
+    @Value("${app.frontend-url:http://localhost:8080}")
+    private String frontendUrl;
+
     @GetMapping("/pay")  //  /alipay/pay?orderNo=xxx
     public void pay(String orderNo, HttpServletResponse httpResponse) throws Exception {
         // 查询订单信息
@@ -60,7 +64,7 @@ public class AliPayController {
         bizContent.set("subject", orders.getGoodsName());   // 支付的名称
         bizContent.set("product_code", "FAST_INSTANT_TRADE_PAY");  // 固定配置
         request.setBizContent(bizContent.toString());
-        request.setReturnUrl("http://localhost:8080/front/orders"); // 支付完成后自动跳转到本地页面的路径
+        request.setReturnUrl(frontendUrl.replaceAll("/+$", "") + "/front/orders");
         // 执行请求，拿到响应的结果，返回给浏览器
         String form = "";
         try {

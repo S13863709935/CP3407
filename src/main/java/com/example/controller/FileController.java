@@ -13,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.List;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * 文件接口
@@ -23,13 +24,14 @@ import java.util.List;
 public class FileController {
 
     // 文件上传存储路径
-    private static final String filePath = System.getProperty("user.dir") + "/files/";
+    private final String filePath;
+    private final String publicBaseUrl;
 
-    @Value("${server.port:9090}")
-    private String port;
-
-    @Value("${ip:localhost}")
-    private String ip;
+    public FileController(@Value("${app.upload-dir:${user.dir}/files}") String filePath,
+                          @Value("${app.public-url:http://localhost:9090}") String publicBaseUrl) {
+        this.filePath = Paths.get(filePath).toAbsolutePath().normalize().toString();
+        this.publicBaseUrl = StrUtil.removeSuffix(publicBaseUrl, "/");
+    }
 
     /**
      * 文件上传
@@ -41,20 +43,19 @@ public class FileController {
             flag = System.currentTimeMillis() + "";
             ThreadUtil.sleep(1L);
         }
-        String fileName = file.getOriginalFilename();
+        String fileName = safeFileName(file.getOriginalFilename());
         try {
             if (!FileUtil.isDirectory(filePath)) {
                 FileUtil.mkdir(filePath);
             }
             // 文件存储形式：时间戳-文件名
-            FileUtil.writeBytes(file.getBytes(), filePath + flag + "-" + fileName);  // ***/manager/files/1697438073596-avatar.png
+            FileUtil.writeBytes(file.getBytes(), resolveFile(flag + "-" + fileName).toString());
             System.out.println(fileName + "--上传成功");
 
         } catch (Exception e) {
             System.err.println(fileName + "--文件上传失败");
         }
-        String http = "http://" + ip + ":" + port + "/files/";
-        return Result.success(http + flag + "-" + fileName);  //  http://localhost:9090/files/1697438073596-avatar.png
+        return Result.success(publicBaseUrl + "/files/" + flag + "-" + fileName);
     }
 
     /**
@@ -67,20 +68,20 @@ public class FileController {
             flag = System.currentTimeMillis() + "";
             ThreadUtil.sleep(1L);
         }
-        String fileName = file.getOriginalFilename();
+        String fileName = safeFileName(file.getOriginalFilename());
         try {
             if (!FileUtil.isDirectory(filePath)) {
                 FileUtil.mkdir(filePath);
             }
             // 文件存储形式：时间戳-文件名
-            FileUtil.writeBytes(file.getBytes(), filePath + flag + "-" + fileName);  // ***/manager/files/1697438073596-avatar.png
+            FileUtil.writeBytes(file.getBytes(), resolveFile(flag + "-" + fileName).toString());
             System.out.println(fileName + "--上传成功");
 
         } catch (Exception e) {
             System.err.println(fileName + "--文件上传失败");
         }
-        String http = "http://" + ip + ":" + port + "/files/";
-        return Dict.create().set("errno", 0).set("data", CollUtil.newArrayList(Dict.create().set("url", http + flag + "-" + fileName)));
+        String url = publicBaseUrl + "/files/" + flag + "-" + fileName;
+        return Dict.create().set("errno", 0).set("data", CollUtil.newArrayList(Dict.create().set("url", url)));
     }
 
 
@@ -97,7 +98,7 @@ public class FileController {
             if (StrUtil.isNotEmpty(flag)) {
                 response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(flag, "UTF-8"));
                 response.setContentType("application/octet-stream");
-                byte[] bytes = FileUtil.readBytes(filePath + flag);
+                byte[] bytes = FileUtil.readBytes(resolveFile(flag).toString());
                 os = response.getOutputStream();
                 os.write(bytes);
                 os.flush();
@@ -115,9 +116,21 @@ public class FileController {
      */
     @DeleteMapping("/{flag}")
     public void delFile(@PathVariable String flag) {
-        FileUtil.del(filePath + flag);
+        FileUtil.del(resolveFile(flag).toString());
         System.out.println("删除文件" + flag + "成功");
     }
 
+    private Path resolveFile(String fileName) {
+        Path uploadDirectory = Paths.get(filePath);
+        Path resolved = uploadDirectory.resolve(fileName).normalize();
+        if (!resolved.startsWith(uploadDirectory)) {
+            throw new IllegalArgumentException("Invalid file path");
+        }
+        return resolved;
+    }
 
+    private String safeFileName(String originalFileName) {
+        String normalised = StrUtil.blankToDefault(originalFileName, "upload.bin").replace('\\', '/');
+        return normalised.substring(normalised.lastIndexOf('/') + 1);
+    }
 }
