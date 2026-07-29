@@ -37,3 +37,15 @@ search behaviour, buyer/seller order views, and feedback reply history.
 
 Assessment evidence is maintained on the repository's
 [Backend documentation hub](https://github.com/S13863709935/CP3407/blob/Backend/docs/index.md).
+
+## Vercel deployment
+
+Import the GitHub repository into Vercel, select `Frontend` as the production
+branch, use `npm run build`, publish `dist`, and set:
+
+```text
+VUE_APP_BASEURL=https://YOUR-BACKEND.up.railway.app
+```
+
+The committed `vercel.json` provides the history-mode fallback required for
+direct access to routes such as `/front/home`.

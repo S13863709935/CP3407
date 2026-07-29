@@ -120,7 +120,9 @@ export default {
         console.log("Your browser does not support WebSocket")
       } else {
         console.log("Your browser supports WebSocket")
-        let socketUrl = "ws://localhost:9090/chatServer/" + this.user.id
+        const apiBaseUrl = (this.$baseUrl || 'http://localhost:9090').replace(/\/+$/, '')
+        const socketBaseUrl = apiBaseUrl.replace(/^http:/, 'ws:').replace(/^https:/, 'wss:')
+        let socketUrl = socketBaseUrl + "/chatServer/" + this.user.id
         if (socket != null) {
           socket.close()
           socket = null

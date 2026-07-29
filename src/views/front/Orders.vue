@@ -155,7 +155,7 @@ export default {
   },
   methods: {
     pay(orderNo) {
-      window.open('http://localhost:9090/alipay/pay?orderNo=' + orderNo)
+      window.open(this.$baseUrl.replace(/\/+$/, '') + '/alipay/pay?orderNo=' + encodeURIComponent(orderNo))
     },
     changeStatus(row, status) {
       this.$confirm('Are you sure you want to proceed?', 'Confirm Action', {type: "warning"}).then(response => {
