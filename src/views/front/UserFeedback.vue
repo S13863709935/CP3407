@@ -129,8 +129,8 @@ export default {
         }
       }).then(res => {
         if (res.code === '200') {
-          this.tableData = res.data?.list
-          this.total = res.data?.total
+          this.tableData = res.data?.list || []
+          this.total = res.data?.total || 0
         } else {
           this.$message.error(res.msg)
         }

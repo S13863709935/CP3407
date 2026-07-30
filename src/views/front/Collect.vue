@@ -116,8 +116,8 @@ export default {
           title: this.title,
         }
       }).then(res => {
-        this.tableData = res.data?.list
-        this.total = res.data?.total
+        this.tableData = res.data?.list || []
+        this.total = res.data?.total || 0
       })
     },
     reset() {
