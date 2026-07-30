@@ -15,6 +15,8 @@ All notable changes to the coursework release are recorded here.
 
 - Standardised listing publication values across Vue, Spring Boot and MyBatis.
 - Preserved safe empty-state behaviour for keyword searches.
+- Preserved safe empty-state behaviour for order, favourite, and feedback
+  lists.
 
 ### Testing
 
@@ -22,6 +24,11 @@ All notable changes to the coursework release are recorded here.
 - Added H2-backed MyBatis integration tests for public listing visibility.
 - Added frontend status and UI contract suites.
 - Added JaCoCo reporting and a combined GitHub Actions quality workflow.
+- Expanded the backend suite from 39 to 90 tests across authentication,
+  addresses, comments, chat, orders, profiles, favourites, announcements,
+  feedback, and exception responses.
+- Raised JaCoCo coverage from 31.5% to 50.1% of lines and from 26.8% to 50.9%
+  of branches.
 
 ### Documentation
 

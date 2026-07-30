@@ -11,7 +11,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 public final class AuthenticatedTestSupport {
 
@@ -26,7 +26,7 @@ public final class AuthenticatedTestSupport {
         resident.setUsername("resident-" + userId);
         resident.setPassword("test-signing-password");
         resident.setRole("USER");
-        when(userService.selectById(userId)).thenReturn(resident);
+        lenient().when(userService.selectById(userId)).thenReturn(resident);
 
         TokenUtils tokenUtils = new TokenUtils();
         ReflectionTestUtils.setField(tokenUtils, "userService", userService);
@@ -48,7 +48,7 @@ public final class AuthenticatedTestSupport {
         administrator.setUsername("admin-" + adminId);
         administrator.setPassword("test-signing-password");
         administrator.setRole("ADMIN");
-        when(adminService.selectById(adminId)).thenReturn(administrator);
+        lenient().when(adminService.selectById(adminId)).thenReturn(administrator);
 
         TokenUtils tokenUtils = new TokenUtils();
         ReflectionTestUtils.setField(tokenUtils, "userService", userService);

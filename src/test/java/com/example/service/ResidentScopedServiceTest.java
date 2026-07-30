@@ -18,7 +18,10 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -98,5 +101,63 @@ class ResidentScopedServiceTest {
 
         verify(feedbackMapper).insert(feedback);
         assertEquals(41, feedback.getUserId());
+    }
+
+    @Test
+    void feedbackSubmissionOverwritesAForgedOwnerId() {
+        Feedback feedback = new Feedback();
+        feedback.setUserId(999);
+
+        feedbackService.add(feedback);
+
+        assertEquals(41, feedback.getUserId());
+        verify(feedbackMapper).insert(feedback);
+    }
+
+    @Test
+    void administratorFeedbackPageIsNotRestrictedToAResident() {
+        AuthenticatedTestSupport.clearAuthentication();
+        AuthenticatedTestSupport.authenticateAdmin(userService, adminService, 7);
+        Feedback filter = new Feedback();
+        when(feedbackMapper.selectAll(filter)).thenReturn(Collections.emptyList());
+
+        feedbackService.selectPage(filter, 1, 10);
+
+        assertNull(filter.getUserId());
+        verify(feedbackMapper).selectAll(filter);
+    }
+
+    @Test
+    void favouriteBatchDeleteRemovesEverySelectedRecord() {
+        collectService.deleteBatch(java.util.Arrays.asList(70, 71, 72));
+
+        verify(collectMapper, times(3)).deleteById(org.mockito.ArgumentMatchers.anyInt());
+        verify(collectMapper).deleteById(70);
+        verify(collectMapper).deleteById(71);
+        verify(collectMapper).deleteById(72);
+    }
+
+    @Test
+    void feedbackQueriesAndUpdateDelegateToTheMapper() {
+        Feedback feedback = new Feedback();
+        feedback.setId(81);
+        feedback.setReply("Thank you for the suggestion");
+        when(feedbackMapper.selectById(81)).thenReturn(feedback);
+        when(feedbackMapper.selectAll(feedback))
+                .thenReturn(Collections.singletonList(feedback));
+
+        assertSame(feedback, feedbackService.selectById(81));
+        assertSame(feedback, feedbackService.selectAll(feedback).get(0));
+        feedbackService.updateById(feedback);
+
+        verify(feedbackMapper).updateById(feedback);
+    }
+
+    @Test
+    void feedbackBatchDeleteRemovesEverySelectedRecord() {
+        feedbackService.deleteBatch(java.util.Arrays.asList(81, 82));
+
+        verify(feedbackMapper).deleteById(81);
+        verify(feedbackMapper).deleteById(82);
     }
 }

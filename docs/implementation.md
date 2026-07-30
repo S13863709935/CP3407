@@ -54,6 +54,9 @@ retroactive claim. It:
 - fixed safe handling of empty search responses;
 - replaced database-dependent placeholder tests with deterministic coverage;
 - added frontend contract tests, JaCoCo reporting and GitHub Actions;
+- expanded behaviour and security regression coverage from 39 to 90 backend
+  tests and from 31.5% to 50.1% of project lines;
+- preserved stable empty-state lists for orders, favourites and feedback;
 - organised the assessment evidence into connected technical pages.
 
 The sprint is tracked by
@@ -61,11 +64,12 @@ The sprint is tracked by
 
 ## 5. Build evidence
 
-Verified on 28 July 2026:
+Verified on 30 July 2026:
 
 ```text
 Backend: mvn clean verify
-Result: 39 tests, 0 failures, 0 errors; executable JAR produced
+Result: 90 tests, 0 failures, 0 errors; executable JAR produced
+JaCoCo: 50.1% lines, 50.9% branches, 49.3% methods
 
 Frontend: npm test
 Result: two contract suites passed
